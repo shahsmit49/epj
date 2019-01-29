@@ -6,8 +6,27 @@ public class DeleteKthLastFromList {
 
   // Assumes L has at least k nodes, deletes the k-th last node in L.
   public static ListNode<Integer> removeKthLast(ListNode<Integer> L, int k) {
-    // TODO - you fill in here.
-    return null;
+    
+	ListNode<Integer> fast = L;
+	ListNode<Integer> slow = L;
+	int count = k;
+	
+	while(count-- > 0) {
+		fast = fast.next;
+	}
+	
+	while(fast != null && fast.next != null) {
+		slow = slow.next;
+		fast = fast.next;	
+	}
+	
+	if(fast == null) {
+		L = L.next;
+		return L;
+	}
+	slow.next = slow.next.next;
+	
+    return L;
   }
 
   public static void main(String[] args) {
