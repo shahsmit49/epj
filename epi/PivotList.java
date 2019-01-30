@@ -9,8 +9,38 @@ import java.util.List;
 public class PivotList {
 
   public static ListNode<Integer> listPivoting(ListNode<Integer> l, int x) {
-    // TODO - you fill in here.
-    return null;
+	  
+	  ListNode<Integer> below = new ListNode<Integer>(0, null);
+	  ListNode<Integer> equal = new ListNode<Integer>(0, null);
+	  ListNode<Integer> above = new ListNode<Integer>(0, null);
+	  ListNode<Integer> belowans = below;
+	  ListNode<Integer> equalans = equal;
+	  ListNode<Integer> aboveans = above;
+	  
+	  ListNode<Integer> iter = l;
+	  
+	  while(iter != null) {
+		  if((int)(iter.data) > x) {
+			  above.next = iter;
+			  above = above.next;
+		  }
+		  else if((int)(iter.data) == x) {
+			  equal.next = iter;
+			  equal = equal.next;
+		  }
+		  else {
+			  below.next = iter;
+			  below = below.next;
+		  }
+		  iter = iter.next;
+	  }
+	  
+	  above.next = null;
+	  equal.next = aboveans.next;
+	  below.next = equalans.next;
+	  
+	  
+	  return belowans.next;
   }
   public static List<Integer> linkedToList(ListNode<Integer> l) {
     List<Integer> v = new ArrayList<>();
