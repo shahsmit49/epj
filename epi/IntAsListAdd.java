@@ -8,6 +8,7 @@ public class IntAsListAdd {
                                                 ListNode<Integer> L2) {
 	  
 	  ListNode<Integer> response  = L1;
+	  ListNode<Integer> temp = L1;
 	  if(L1 == null) {
 		  return L2;
 	  }
@@ -17,71 +18,59 @@ public class IntAsListAdd {
 	  
 	  int carry = 0;
 	  int ans = 0;
-	  int a = 0,b = 0;
+	  int sum = 0;
 	  while(L1 != null || L2 != null) {
 		  
-		  a = 0; b = 0; ans = 0;
-		  if( L1 != null)
-			  a = L1.data;
-		  if(L2 != null)
-			  b = L2.data;
-		  a = a + b + carry;
+		  sum = 0; ans = 0;
+		  if( L1 != null) {
+			  sum += L1.data;
+			  temp = L1;
+			  L1 = L1.next;
+		  }
+		  if(L2 != null) {
+			  sum += L2.data;
+			  L2 = L2.next;
+		  }
+		  sum += carry;
 		  carry = 0;
-		  if( a > 9) {
-			  carry = a / 10;
-			  ans = a % 10;
+		  if( sum > 9) {
+			  carry = sum / 10;
+			  ans = sum % 10;
 		  }
 		  else {
-			  ans = a;
+			  ans = sum;
 		  }
 		  
-		  L1.data = ans;
+		  temp.data = ans;
 		  
-		  if(L1.next == null && L2 != null) {
-			  
-			  
-			  L2 = L2.next;
-			  L1.next = L2;
-			  if(L2 != null) {
-				  L2.data = L2.data + carry;
-				  
-				  while(L2.data > 9) {
-					  carry = L2.data / 10;
-					  L2.data = L2.data % 10;
-					  ListNode<Integer> temp = L2;
-					  L2 = L2.next;
-					  if(L2 == null) {
-						  ListNode<Integer> newNode = new ListNode<Integer>(carry, null);
-						  temp.next = newNode;
-						  L2 = temp;
-					  }
-					  else 
-						  L2.data = L2.data + carry;
-				  }
-			  }
-			  else {
-				  if(carry > 0) {
-					  ListNode<Integer> newNode = new ListNode<Integer>(carry, null);
-					  L1.next = newNode;
-				  }
-			  }
+		  if(L1 == null && L2 != null) {
 
+			  temp.next = L2;
+			  L2.data = L2.data + carry;
+			  
+			  while(L2.data > 9) {
+				  carry = L2.data / 10;
+				  L2.data = L2.data % 10;
+				  temp = L2;
+				  L2 = L2.next;
+				  if(L2 == null) {
+					  ListNode<Integer> newNode = new ListNode<Integer>(carry, null);
+					  temp.next = newNode;
+					  break;
+				  }
+				  else  {
+					  L2.data = L2.data + carry;
+				  }
+			  }
 			  break;
 		  }
-		  if(L1 != null && L1.next == null && L2 == null) {
+		  if(L1 == null && L2 == null) {
 			  if(carry > 0) {
 				  ListNode<Integer> newNode = new ListNode<Integer>(carry, null);
-				  L1.next = newNode;
+				  temp.next = newNode;
 				  carry = 0;
 			  }
-		  }
-		  
-		  if( L1 != null)
-			  L1 = L1.next;
-		  if(L2 != null)
-			  L2 = L2.next;
-		  
-		  
+		  }	  
 	  }
 	  return response;
   }
