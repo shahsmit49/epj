@@ -3,27 +3,77 @@ import epi.test_framework.EpiTest;
 import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
+
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
+
+
+
+
+
 public class StackWithMax {
+	
+	private static class MaxWithCount {
+		
+		public Integer max;
+		public Integer count;
+		
+		public MaxWithCount(Integer max, Integer count) {
+			this.max = max;
+			this.count = count;
+		}
+		
+	}
 
   public static class Stack {
-    public boolean empty() {
-      // TODO - you fill in here.
-      return true;
-    }
-    public Integer max() {
-      // TODO - you fill in here.
-      return 0;
-    }
-    public Integer pop() {
-      // TODO - you fill in here.
-      return 0;
-    }
-    public void push(Integer x) {
-      // TODO - you fill in here.
-      return;
-    }
+	  	
+	private Deque<Integer> stack = new LinkedList<>();
+	private Deque<MaxWithCount> maxWithCount = new LinkedList<>();
+	  
+	public boolean empty() {
+		
+		if(stack.isEmpty())
+			return true;
+		return false;
+	}
+	public Integer max() {
+	  
+		return maxWithCount.peek().max;
+	}
+	public Integer pop() {
+	  
+		if(empty())
+			throw new IllegalStateException();
+		Integer ans = stack.pop();
+		if(ans.equals(max())) {
+			if(maxWithCount.peek().count.equals(1)) {
+				maxWithCount.pop();
+			}
+			else {
+				maxWithCount.peek().count--;
+			}
+		}
+		return ans;
+	}
+	public void push(Integer x) {
+	  
+		stack.push(x);
+		if(maxWithCount.isEmpty()) {
+			maxWithCount.push(new MaxWithCount(x, 1));
+		}
+		else {
+			int max = maxWithCount.peek().max;
+			if(x > max) {
+				maxWithCount.push(new MaxWithCount(x, 1));
+			}
+			else if(x.equals(max)) {
+				maxWithCount.peek().count++;
+			}
+		}
+		return;
+	}
   }
   @EpiUserType(ctorParams = {String.class, int.class})
   public static class StackOp {
