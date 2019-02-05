@@ -5,9 +5,24 @@ public class IsTreeSymmetric {
   @EpiTest(testDataFile = "is_tree_symmetric.tsv")
 
   public static boolean isSymmetric(BinaryTreeNode<Integer> tree) {
-    // TODO - you fill in here.
-    return true;
+    
+    return tree == null || checkSymmetry(tree.left, tree.right);
   }
+  
+  public static boolean checkSymmetry(BinaryTreeNode<Integer> treeLeft, BinaryTreeNode<Integer> treeRight) {
+	  
+	  if(treeLeft == null && treeRight == null) {
+		  return true;
+	  }
+	  else if(treeLeft != null && treeRight != null) {
+		  
+		  return treeLeft.data == treeRight.data && checkSymmetry(treeLeft.left, treeRight.right)
+				  && checkSymmetry(treeLeft.right, treeRight.left);
+	  }
+	  return false;
+	  
+  }
+  
 
   public static void main(String[] args) {
     System.exit(
