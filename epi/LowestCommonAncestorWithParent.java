@@ -8,8 +8,52 @@ public class LowestCommonAncestorWithParent {
 
   public static BinaryTree<Integer> LCA(BinaryTree<Integer> node0,
                                         BinaryTree<Integer> node1) {
-    // TODO - you fill in here.
-    return null;
+    int height1 = getHeight(node0);
+    int height2 = getHeight(node1);
+    int diff = height1 - height2;
+    
+    if(diff > 0 ) {
+    	BinaryTree<Integer> node = makeEqual(node0, diff);
+    	return commonHead(node, node1);
+    }
+    else {
+    	BinaryTree<Integer> node = makeEqual(node1, Math.abs(diff));
+    	return commonHead(node, node0);
+    }
+  }
+  
+  public static int getHeight(BinaryTree<Integer> node) {
+	  
+	  int height = 0 ;
+	  
+	  while(node.parent != null) {
+		  node = node.parent;
+		  height++;
+	  }
+	  return height;
+	  
+//	  if(node == null) return 1;
+//	  int height = getHeight(node.parent);
+//	  return height + 1;
+	  
+  }
+  
+  public static BinaryTree<Integer> makeEqual(BinaryTree<Integer> node, int steps) {
+	  
+	  while(steps-- > 0 && node.parent != null) {
+		  node = node.parent;
+	  }
+	  return node;
+  }
+  
+  public static BinaryTree<Integer> commonHead(BinaryTree<Integer> node0, BinaryTree<Integer> node1) {
+	  
+	  while(node0 != node1) {
+		  node0 = node0.parent;
+		  node1 = node1.parent;
+	  }
+	  return node0;
+	  
   }
   @EpiTest(testDataFile = "lowest_common_ancestor.tsv")
   public static int lcaWrapper(TimedExecutor executor, BinaryTree<Integer> tree,
