@@ -35,57 +35,6 @@ public class SuccessorInTree {
 			return temp;
 		}
 	}
-//	BinaryTree<Integer> parentNode = node.parent;
-//	if(parentNode != null) {
-//		if(parentNode.left == node) {
-//			BinaryTree<Integer> tempNode = parentNode.right;
-//			if(tempNode != null) {
-//				while(tempNode.left != null) {
-//					tempNode = tempNode.left;
-//				}
-//				return tempNode;
-//			}
-//			else {
-//				return parentNode;
-//			}
-//		}
-//		else {
-//			BinaryTree<Integer> tempNode = null;
-//			
-//		}
-//	}
-	
-//	if(node.parent == null) {
-//		return null;
-//	}
-//	BinaryTree<Integer> tempNode = node;
-//	while(tempNode.parent != null) {
-//		tempNode = node.parent;
-//		if(tempNode.left == node) {
-//			return tempNode;
-//		}
-//		node = tempNode;
-//	}
-//	
-//	if(tempNode.right == null) {
-//		return tempNode;
-//	}
-//	else {
-//		tempNode = tempNode.right;
-//	}
-//	if(tempNode.left == null && tempNode.right == null) {
-//		return tempNode;
-//	}
-//	if(tempNode.left != null) {
-//		while(tempNode.left != null) {
-//			tempNode = tempNode.left;
-//		}
-//		return tempNode.parent;
-//	}
-//	if(tempNode.right == null) {
-//		return tempNode;
-//	}
-//	return null;
   }
   @EpiTest(testDataFile = "successor_in_tree.tsv")
   public static int findSuccessorWrapper(TimedExecutor executor,
